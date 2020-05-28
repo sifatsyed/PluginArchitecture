@@ -1,0 +1,42 @@
+This file contains the names of all important personnel for this section of Philosophy 101.
+The three sections are instructors, students, and TAs.
+--------------------------------------------------------------------------------
+Instructors
+--------------------------------------------------------------------------------
+Socrates
+Plato
+--------------------------------------------------------------------------------
+Students
+--------------------------------------------------------------------------------
+Epicuris
+Avicenna
+Averroes
+Philo
+Plotinus
+St. Augustine
+Locke
+Descartes
+Berkley
+Hume
+Spinoza
+Leibniz
+Frege
+Kant
+Schopenhauer
+Peirce
+Saussure
+Hegel
+Russel
+Marx
+Nietzche
+Kierkegaard
+Gramsci
+Heidegger
+Wittgenstein
+Quine
+--------------------------------------------------------------------------------
+TAs
+--------------------------------------------------------------------------------
+Aristotle
+Heraclitus
+--------------------------------------------------------------------------------
