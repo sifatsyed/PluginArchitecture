@@ -1,26 +1,59 @@
 package programFiles;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class PluginResult {
+	
+	private String outputText;
+	private String timeTakenToGenerateOutput; //might need to change this to int? or dateTime?
+	private String scriptType;
+	
+	public PluginResult(String outputText, String timeTakenToGenerateOutput, String scriptType) {
+		super();
+		this.outputText = outputText;
+		this.timeTakenToGenerateOutput = timeTakenToGenerateOutput;
+		this.scriptType = scriptType;
+	}
 
-	public static void outputGenerator(String resultFile) throws IOException, InterruptedException {
-		PluginExecutor pythonRun = new PluginExecutor();
-		PluginExecutor shellScriptRun = new PluginExecutor();
+	public String getOutputText() {
+		return outputText;
+	}
 
-		String pythonOutputFile = "C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\resultFiles\\pythonResult.txt";
-		String shellScriptOutputFile = "C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\resultFiles\\shellScriptResult.txt";
+	public void setOutputText(String outputText) {
+		this.outputText = outputText;
+	}
 
-		String pythonOutput = pythonRun.pythonExecutor(pythonOutputFile);
-		String shellScriptOutput = shellScriptRun.shellScriptExecutor(shellScriptOutputFile);
+	public String getTimeTakenToGenerateOutput() {
+		return timeTakenToGenerateOutput;
+	}
 
-		FileWriter fileWriter = new FileWriter(resultFile);
-		fileWriter.write(pythonOutput + "\n====================================================\n" + shellScriptOutput);
-		fileWriter.close();
+	public void setTimeTakenToGenerateOutput(String timeTakenToGenerateOutput) {
+		this.timeTakenToGenerateOutput = timeTakenToGenerateOutput;
+	}
+
+	public String getScriptType() {
+		return scriptType;
+	}
+
+	public void setScriptType(String scriptType) {
+		this.scriptType = scriptType;
+	}
+
+	@Override
+	public String toString() {
+		return "PluginResult \n[outputText = \n" + outputText + "timeTakenToGenerateOutput = " + timeTakenToGenerateOutput
+				+ "\nscriptType = " + scriptType + "]";
 	}
 
 	public static void main(String args[]) throws IOException, InterruptedException {
-		outputGenerator("C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\resultFiles\\result.txt");
+		PluginDirectory pluginDirectory = new PluginDirectory();
+		List<String> result = pluginDirectory.getFilesList("C:\\SNRG\\PluginArchitecture\\PluginArchitecturePhaseIII\\src\\files");
+		System.out.println(result);
+		PluginExecutor plugin = new PluginExecutor();
+	//	PluginResult pluginResult = plugin.run("helloWorld.py");
+	//	System.out.println(pluginResult.toString());
 	}
 }
