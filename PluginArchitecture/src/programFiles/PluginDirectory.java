@@ -14,7 +14,7 @@ public class PluginDirectory {
 	 * @param filePath
 	 * @return
 	 */
-	public static List<String> getFilesList(String filePath) {
+	public List<String> getFilesList(String filePath) {
 		File file = new File(filePath);
 		String[] fileList = file.list();
 		List<String> fileNameList = new ArrayList<String>();
