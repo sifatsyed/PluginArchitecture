@@ -11,64 +11,57 @@ public class PluginExecutor {
 	
 	public PluginExecutor() {}
 	
-	public String pythonExecutor(String outputFile) throws IOException, InterruptedException {
+	public static void statusReport(int statusCode, Integer fileType) {
+		String fileExtension = null;
+		if(fileType == 1) {
+			fileExtension = "Python ";
+		} else { 
+			fileExtension = "Shell ";
+		}
 		
-		//String[] command = {"C:\\Users\\sifat\\PycharmProjects\\helloWorld\\venv\\Scripts\\python.exe", "C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\files\\helloWorld.py"};
-		String outputText = "";
-		List<String> command = new ArrayList<String>();
-        command.add("C:\\Users\\sifat\\PycharmProjects\\helloWorld\\venv\\Scripts\\python.exe");
-        command.add("C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\files\\helloWorld.py");
-		ProcessBuilder pb = new ProcessBuilder(command);
-		
-			Process process = pb.start();
-			
-			if(process.waitFor() == 0) {
-				System.out.println("Success! Python output generated!");
-			} else if(process.waitFor() == 1){
-				System.out.println("Python: Failed! Check your code!");
+		 if(statusCode == 0) {
+				System.out.println("Success! " + fileExtension + "Script output generated!");
+			} else if(statusCode == 1){
+				System.out.println(fileExtension + "Script: Failed! Check your code!");
 			} else {
-				System.out.println("Python: Error with process!");
+				System.out.println(fileExtension + "Script: Error with process!");
 			}
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line = null;
-			FileWriter fileWriter = new FileWriter(outputFile);
-			fileWriter.write("====================================================\n");
-			outputText += "====================================================\n";
-			fileWriter.write("Python Output\n====================================================\n");
-			outputText += "Python Output\n====================================================\n";
-			while((line = reader.readLine()) != null) {
-				fileWriter.write(line + "\n");
-				outputText += line + "\n";
-			}
-			fileWriter.write("====================================================\n");
-			outputText += "====================================================\n";
-			fileWriter.close();
-		
-		return outputText;
 	}
 	
-	public String shellScriptExecutor(String outputFile) throws IOException, InterruptedException {
+	//Change this to return pluginResult
+	public PluginResult run(String pluginName, Integer fileType) throws IOException, InterruptedException {
 		Process p;
+		String outputFile = "C:\\GitHub\\PluginArchitecture\\PluginArchitecture\\src\\resultFiles\\result.txt";
 		String outputText = "";
+		String timeTakenToRun = "0:0";
+		String scriptType = null;
             List<String> command = new ArrayList<String>();
-            command.add("C:\\cygwin64\\bin\\tcsh.exe");
-            command.add("C:\\SNRG\\PluginArchitecture\\PluginArchitecture\\src\\files\\helloWorld.sh");
+            
+            String binPython = "C:\\Users\\sifat\\Python38-32\\python.exe";
+            String binShellScript = "C:\\cygwin64\\bin\\tcsh.exe";
+            String arg = "C:\\GitHub\\PluginArchitecture\\PluginArchitecture\\src\\files\\" + pluginName;
+            
+            if(fileType == 1) {
+            	command.add(binPython);
+            	scriptType = ".py";
+            } else if(fileType == 2) {
+            	command.add(binShellScript);
+            	scriptType = ".sh";
+            } else {
+            	System.out.println("Invalid file type entered!");
+            }
+            command.add(arg);
             ProcessBuilder pb = new ProcessBuilder(command);
             p = pb.start();
                 
-            p.waitFor(); 
-            if(p.waitFor() == 0) {
-				System.out.println("Success! Shell Script output generated!");
-			} else if(p.waitFor() == 1){
-				System.out.println("Shell Script: Failed! Check your code!");
-			} else {
-				System.out.println("Shell Script: Error with process!");
-			}
+            int statusCode = p.waitFor(); 
+            statusReport(statusCode, fileType);
+           
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream())); 
             FileWriter fileWriter = new FileWriter(outputFile);
             String line; 
-            fileWriter.write("Shell Script Output\n");
-            outputText += "Shell Script Output\n";
+            fileWriter.write("Output\n");
+            outputText += "Output\n";
             fileWriter.write("====================================================\n");
             outputText += "====================================================\n";
             while((line = reader.readLine()) != null) { 
@@ -78,7 +71,8 @@ public class PluginExecutor {
             fileWriter.write("====================================================\n");
             outputText += "====================================================\n";
             fileWriter.close();
-            return outputText;
+            PluginResult pluginResult = new PluginResult(outputText, timeTakenToRun, scriptType);
+            return pluginResult;
 	}
 
 }
