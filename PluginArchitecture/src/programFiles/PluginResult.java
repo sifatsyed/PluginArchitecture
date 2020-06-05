@@ -50,10 +50,10 @@ public class PluginResult {
 
 	public static void main(String args[]) throws IOException, InterruptedException {
 		PluginDirectory pluginDirectory = new PluginDirectory();
-		List<String> result = pluginDirectory.getFilesList("C:\\SNRG\\PluginArchitecture\\PluginArchitecturePhaseIII\\src\\files");
+		List<String> result = pluginDirectory.getFilesList("C:\\GitHub\\PluginArchitecture\\PluginArchitecture\\src\\files");
 		System.out.println(result);
 		PluginExecutor plugin = new PluginExecutor();
-	//	PluginResult pluginResult = plugin.run("helloWorld.py");
-	//	System.out.println(pluginResult.toString());
+		PluginResult pluginResult = plugin.run("helloWorld.py", 1);
+		System.out.println(pluginResult.toString());
 	}
 }

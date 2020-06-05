@@ -12,4 +12,12 @@ Description of classes:
 
 ## Phase 2
 Three separate classes were created for listing, execution and generating result. Also, the output was stored in separate files during execution and combined in the end in `result.txt`. 
+
+## Phase 3
+New elements were added to `PluginResult` class. These elements are a result, of type `String`, a timeTaken variable of type `String`, it is supposed to be changed to either DateTime or other variable type which fits. There is one more variable named fileType of type `String` and it determines which kind of file was executed. Earlier, the file executor was returning a `String`, but now it returns a `PluginResult`.
+
+## Phase 4
+In PluginExecutor, earlier the program had two different executors for python and shell script, but in this phase both of them were merged together. The new method is called `run`. An if else condition, and a type determinator was added to the method to add the correct executor. Right now, the executor is designed to be used locally. 
+
+
  
